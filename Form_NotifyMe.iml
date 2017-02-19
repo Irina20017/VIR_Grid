@@ -87,5 +87,8 @@
     <orderEntry type="library" name="Maven: ru.stqa.selenium:webdriver-factory:3.0" level="project" />
     <orderEntry type="library" name="Maven: org.testng:testng:6.9.10" level="project" />
     <orderEntry type="library" name="Maven: org.beanshell:bsh:2.0b4" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-core:1.1.8" level="project" />
+    <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.1.8" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.21" level="project" />
   </component>
 </module>

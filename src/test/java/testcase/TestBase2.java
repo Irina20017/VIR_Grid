@@ -2,6 +2,9 @@ package testcase;
 
 
 
+import dms.dmsHome;
+import dms.dmsHome2;
+import dmsDealers.Dealers;
 import notifyMePage.NotifyMe;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -22,6 +25,9 @@ public class TestBase2 {
     protected WebDriver driver;
     public String baseUrl;
     protected NotifyMe notifyMe;
+    protected dms.dmsHome dmsHome;
+    protected dms.dmsHome2 dmsHome2;
+    protected dmsDealers.Dealers dealers;
 
 
     @BeforeClass
@@ -35,6 +41,9 @@ public class TestBase2 {
        // driver.get(baseUrl+"/notify");
        // driver.get(PropertyLoader.loadProperty("dws.url"));
         notifyMe = PageFactory.initElements(driver, NotifyMe.class);
+        dmsHome = PageFactory.initElements(driver, dmsHome.class);
+        dmsHome2 = PageFactory.initElements(driver, dmsHome2.class);
+
 
     }
 

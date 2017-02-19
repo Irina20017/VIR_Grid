@@ -5,10 +5,11 @@
     <test name="Test">
         <classes>
             <!--   <class name="elements.IsElemensDisplayedTrucks"/> -->
-            <class name="elements.IsElementDisplayedVehicle"/>
-           <class name="requiredFields.RequiredFieldsHighlighted"/>
+           <!-- <class name="elements.IsElementDisplayedVehicle"/> -->
+          <!-- <class name="requiredFields.RequiredFieldsHighlighted"/> -->
            <!--<class name="positiveTests.PositiveTestTruckMode"/>-->
-            <class name="positiveTests.PositiveTestVehicleMode"/>
+         <!--   <class name="positiveTests.PositiveTestVehicleMode"/> -->
+            <class name="access.LeadsTest"/>
 
         </classes>
 </test> <!-- Test -->
