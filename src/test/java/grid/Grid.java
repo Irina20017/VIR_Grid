@@ -1,6 +1,7 @@
 package grid;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,6 +12,7 @@ import testcase.TestBase;
 import dmsAuction.AdminGridPage;
 import org.openqa.selenium.Keys;
 
+import javax.swing.*;
 import java.util.List;
 
 
@@ -35,7 +37,7 @@ public class Grid extends TestBase  {
     @BeforeClass
     public void openGridPage() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-       loginPage.loginToDms();
+        loginPage.loginToDms();
         wait.until(jsLoad);
         Thread.sleep(1000);
         driver.get(baseUrl+"/dms/auctions/admin#grading");
@@ -44,10 +46,12 @@ public class Grid extends TestBase  {
         wait.until(jQueryLoad );
         Thread.sleep(1000);
 
+
     }
 
     @Test(groups = "dms")
     public void exteriorCheck() throws InterruptedException {
+        Actions action = new Actions(driver);
         int virsection = 1;
 
        do {
@@ -82,30 +86,25 @@ public class Grid extends TestBase  {
                 int sizec = gridPage.getTableCells(id); // оределить количество столбцов в открывшейся таблице
               //  JOptionPane.showMessageDialog(null, "cells ="+sizec); //вывод на экран количества столбцов
 
+                String xpathofwrapper = "//*[@id='main-vir-sections']/li[" +num1+"]//li[" +num+"]/div[3]/div[@class='expand-wrapper']";
+
                 int row =2; //начинаем со второго ряда - там первая ячейка с полем инпут
-                int cell = 2; // начинаем со второго столбца - там первая ячейка с полем инпут
-
-
                do {
                    num2 = Integer.toString(row); // переводим номер ряда в строку для использования при  формировании хpath ячейки
+                   WebElement Element = gridPage.cell(id, num2, "2");
+                   action.moveToElement(Element).perform();
+                     JOptionPane.showMessageDialog(null, "move to element");
+                   Thread.sleep(2000);
 
-                 int done = 1;
+                   int cell = 2; // начинаем со второго столбца - там первая ячейка с полем инпут
                    do {
 
                        num3 = Integer.toString(cell); // переводим номер столбца в строку для использования при  формировании хpath ячейки
                        //   JOptionPane.showMessageDialog(null, "row and cell =" + row + "and" + cell);
 
                        WebElement cellElement = gridPage.cell(id, num2, num3); // вебэлемент -ячейка
-                       if (cellElement.isDisplayed()==false) {
-                       String cellxpath = gridPage.cellxpath(id, num2, num3);
-                       scrollTable2(table, cellxpath );
-                       Thread.sleep(2000);}
                         String title = cellElement.getAttribute("title"); // получаем атрибут ячейки "title"
-                       //    JOptionPane.showMessageDialog(null, "title ="+title);
-
-                       boolean titleEmpty = title.isEmpty();
-                       //  JOptionPane.showMessageDialog(null, "titleEmpty ="+ titleEmpty);
-
+                         boolean titleEmpty = title.isEmpty(); //проверяем если ячейка пустая
 
                        if (titleEmpty != true) {    // если ячейка таблицы не пустая, то
 
@@ -114,50 +113,34 @@ public class Grid extends TestBase  {
                            WebElement cellinput = gridPage.inputCell(id, num2, num3);
                            Thread.sleep(700);
                            cellinput.sendKeys(Keys.ENTER); // кликаем Enter
-                            /*  Keyboard keyboard = new Keyboard();
-                               keyboard.press(13);
-                               keyboard.release(13);
-                               Thread.sleep(1000); */
-                       }
-                       done = done+1;
-                       if (row % 2 == 0) {
-                           if (done != (sizec - 1)) {
-                               cell = cell + 1;
-                           }
+
                        }
 
-                       else {
-                           if (done != (sizec - 1)) {
-                               cell = cell - 1;
-                           }
-                       }
-                      done = done+1;
+                      cell = cell+1; // колисемтво проёденных ячеек
 
-                   } while (done <= (sizec-1));
+                   } while (cell <= sizec);
 
 
-                   //scrollTable(id);
-                 //  Thread.sleep(1000);
-
-
-                row = row+1;
-                  // JOptionPane.showMessageDialog(null, "row = " + row + "cells ="+cell);
+                row = row+1; // переходим на следующий ряд
 
 
 
-                } while (row <= (sizer));
+              //     scrollTable3(xpathofwrapper);
 
 
-                gridPage.exteriorElement(num, num1).click();
-                i = i + 1;
+
+               } while (row <= sizer);
+
+                gridPage.exteriorElement(num, num1).click(); //закрываем элемент секции грид, с прокликаной таблицей
+                i = i + 1; // переходим к следующему элементу секции
 
             } while (i < size );
 
-           gridPage.virSection(num1).click();
+           gridPage.virSection(num1).click(); // сворачиваем дерево пройденной секции
            Thread.sleep(1000);
-           virsection = virsection+1;
+           virsection = virsection+1; //переходим к следующей секции
 
-        } while (virsection<6);
+        } while (virsection<6); // тест для первых пяти секций грид
     }
 
 
@@ -169,16 +152,13 @@ public class Grid extends TestBase  {
             }
         };
 
-       private void scrollTable2(WebElement table, String xpathofcell) {
-           ((JavascriptExecutor)driver).executeScript("table.scrollLeft = 10;");
-           cellelEment = (new WebDriverWait(driver, 10))
-                   .until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpathofcell)));
+       private void scrollTable2(WebElement table) {
+           ((JavascriptExecutor)driver).executeScript("table.scrollLeft = 20;");
+
 
        }
 
        private WebElement scrollTable(WebElement cellelEment, String xpathofcell) throws InterruptedException {
-
-
 
           // ((JavascriptExecutor)driver).executeScript("('#" +id+ "').scrollLeft(+100);");
            ((JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();"
@@ -203,7 +183,12 @@ public class Grid extends TestBase  {
         }
     };
 
+    private void scrollTable3( String xpath) throws InterruptedException {
 
+        WebElement element = driver.findElement(By.xpath(xpath));
+
+        ((JavascriptExecutor) driver).executeScript("element.scrollLeft(+100);");
+    }
 
 }
 
