@@ -9,7 +9,7 @@
           <!-- <class name="requiredFields.RequiredFieldsHighlighted"/> -->
            <!--<class name="positiveTests.PositiveTestTruckMode"/>-->
          <!--   <class name="positiveTests.PositiveTestVehicleMode"/> -->
-            <class name="access.LeadsTest"/>
+            <class name="grid.Grid"/>
 
         </classes>
 </test> <!-- Test -->
