@@ -1,6 +1,5 @@
 package grid;
 
-import com.gargoylesoftware.htmlunit.html.Keyboard;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
@@ -9,9 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import testcase.TestBase;
-import dms.dmsHome2;
 import dmsAuction.AdminGridPage;
-import javax.swing.*;
 import org.openqa.selenium.Keys;
 
 import java.util.List;
@@ -38,7 +35,7 @@ public class Grid extends TestBase  {
     @BeforeClass
     public void openGridPage() throws InterruptedException {
         WebDriverWait wait = new WebDriverWait(driver, 10);
-        dmsHome2 dmsHome2 = dmsHome.loginToDms();
+       loginPage.loginToDms();
         wait.until(jsLoad);
         Thread.sleep(1000);
         driver.get(baseUrl+"/dms/auctions/admin#grading");

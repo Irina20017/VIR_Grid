@@ -11,8 +11,8 @@ import utility.PropertyLoader;
 /**
  * Created by Irina M. on 19.02.2017.
  */
-public class dmsHome extends Page {
-    public dmsHome(WebDriver webDriver) {
+public class LoginPage extends Page {
+    public LoginPage(WebDriver webDriver) {
         super(webDriver);
     }
     String login = PropertyLoader.loadProperty("super.login");
@@ -26,11 +26,11 @@ public class dmsHome extends Page {
     @FindBy(how= How.ID, using ="login2")
     private WebElement signInButton;
 
-    public dmsHome2 loginToDms(){
+    public void loginToDms(){
         loginInput.sendKeys(login);
         pwInput.sendKeys(PropertyLoader.loadProperty("super.pw"));
         signInButton.click();
-        return PageFactory.initElements(driver, dmsHome2.class);
-    }
+
+            }
 
 }

@@ -1,7 +1,6 @@
 package testcase;
 
-import notifyMePage.NotifyMe;
-import dms.dmsHome;
+import dms.LoginPage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -18,12 +17,10 @@ import java.util.concurrent.TimeUnit;
  */
 public class TestBase {
 
-    //  private static final Logger LOG = LogFactory.getLogger(TestBase.class);
 
     protected WebDriver driver;
     public String baseUrl;
-    protected NotifyMe notifyMe;
-    protected dmsHome dmsHome;
+        protected LoginPage loginPage;
     protected AdminGridPage gridPage;
 
 
@@ -35,7 +32,7 @@ public class TestBase {
         driver.manage().timeouts().implicitlyWait(90, TimeUnit.SECONDS);
         baseUrl = PropertyLoader.loadProperty("site.url");
         driver.get(PropertyLoader.loadProperty("dms.url"));
-        dmsHome = PageFactory.initElements(driver, dmsHome.class);
+        loginPage = PageFactory.initElements(driver, LoginPage.class);
 
     }
     @Test
@@ -48,8 +45,7 @@ public class TestBase {
     @AfterClass
     public void tearDown() {
         if (driver != null) {
-            //   LOG.info("Killing web driver");
-            WebDriverFactory.killDriverInstance();
+                  WebDriverFactory.killDriverInstance();
         }
     }
 
