@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.autoxloo</groupId>
-    <artifactId>Form_NotifyMe</artifactId>
+    <artifactId>VIR_Grid</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
