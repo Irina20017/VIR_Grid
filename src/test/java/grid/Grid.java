@@ -36,7 +36,6 @@ public class Grid extends TestBase  {
 
     @BeforeClass
     public void openGridPage() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
         loginPage.loginToDms();
         waitForJSandJQueryToLoad();
         driver.get(baseUrl+"/dms/auctions/admin#grading");
@@ -47,7 +46,6 @@ public class Grid extends TestBase  {
 
     @Test(groups = "dms")
     public void exteriorCheck() throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(driver, 30);
         Actions action = new Actions(driver);
         int virsection = 1;
 
@@ -116,38 +114,6 @@ public class Grid extends TestBase  {
            virsection = virsection+1; //переходим к следующей секции
         } while (virsection<6); // тест для первых пяти секций грид
     }
-
-
-    public boolean waitForJSandJQueryToLoad() {
-
-        WebDriverWait wait = new WebDriverWait(driver, 30);
-
-        // wait for jQuery to load
-        ExpectedCondition<Boolean> jQueryLoad = new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver driver) {
-                try {
-                    return ((Long)((JavascriptExecutor)driver).executeScript("return jQuery.active") == 0);
-                }
-                catch (Exception e) {
-                    // no jQuery present
-                    return true;
-                }
-            }
-        };
-
-        // wait for Javascript to load
-        ExpectedCondition<Boolean> jsLoad = new ExpectedCondition<Boolean>() {
-            @Override
-            public Boolean apply(WebDriver driver) {
-                return ((JavascriptExecutor)driver).executeScript("return document.readyState")
-                        .toString().equals("complete");
-            }
-        };
-
-        return wait.until(jQueryLoad) && wait.until(jsLoad);
-    }
-
 
 }
 
